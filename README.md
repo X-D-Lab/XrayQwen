@@ -14,13 +14,15 @@
 [![GitHub Contributors](https://img.shields.io/github/contributors/X-D-Lab/XrayQwen)](https://github.com/X-D-Lab/XrayQwen/graphs/contributors)  
 </div> -->
 
-## 项目介绍
+## 📕 项目介绍
 
-我们在文心一言的帮助下从两个数据集([MIMIC-CXR](https://physionet.org/content/mimic-cxr-jpg/2.0.0/)和[OpenI](https://openi.nlm.nih.gov/faq#collection))的自由文本放射学报告中生成中文版X射线报告配对数据用于本项目的训练数据. 
+我们在[文心一言](https://yiyan.baidu.com/)的帮助下从[MIMIC-CXR](https://physionet.org/content/mimic-cxr-jpg/2.0.0/)和[OpenI](https://openi.nlm.nih.gov/faq#collection)两个两个数据集的自由文本放射学报告中生成中文版X射线报告配对数据用于本项目的训练数据, 并经过人工清洗和筛选. 
 
-我们在强大的基座模型[Qwen-VL](https://github.com/QwenLM/Qwen-VL)上利用上述数据进行微调, 得到XrayQwen.
+我们利用上述数据在强大的基座模型[Qwen-VL](https://github.com/QwenLM/Qwen-VL)上进行微调, 得到XrayQwen.
 
-## 开始使用
+❗需要特别说明的是: XrayQwen目前仅作为生成式多模态大模型在医疗场景下的概念探索
+
+## 🚀 开始使用
 
 ### 1. 安装依赖  
 
@@ -103,11 +105,11 @@ python3 ./scripts/webui_demo.py
 
 2. 欢迎专业的医疗人士对XrayQwen进行专业性指导和需求建议, 鼓励开源社区使用并反馈XrayQwen, 促进我们对下一代XrayQwen模型的开发.  
 
-3. XrayQwen模型对于学术研究完全开放, 但需要遵循[MuLan-Openi](./LICENSE)将下游模型开源并[引用](#🤝-引用)本Repo. 对XrayQwen模型进行商用, 请通过组织主页邮箱发送邮件进行细节咨询.
+3. XrayQwen模型对于学术研究完全开放, 但需要遵循[Mulan - OpenI Model License V1 (Beta)](./LICENSE_MODEL)协议. 对XrayQwen模型进行商用, 请通过组织主页邮箱发送邮件进行细节咨询.
 
 ## ⚠️ 免责声明
 
-本仓库所有开源代码及模型均遵循[MuLan-Openi](./LICENSE)许可认证. 目前开源的XrayQwen模型可能存在部分局限, 因此我们对此做出如下声明:
+本仓库开源代码遵循[Apache License 2.0](./LICENSE)协议、模型遵循[Mulan - OpenI Model License V1 (Beta)](./LICENSE_MODEL)许可认证. 目前开源的XrayQwen模型可能存在部分局限, 因此我们对此做出如下声明:
 
 1. **XrayQwen**目前**仅作为生成式多模态大模型在医疗场景下的概念探索**，模型本身可能存在固有的局限性, 可能产生错误的、有害的、冒犯性的或其他不良的输出. 用户在关键或高风险场景中应谨慎行事, 不要使用模型作为最终决策参考, 以免导致人身伤害、财产损失或重大损失.  
 
