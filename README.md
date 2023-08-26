@@ -16,11 +16,13 @@
 
 ## 📕 项目介绍
 
+医疗场景一直是人工智能技术所关注并尝试介入和解决的真实场景. 随着ChatGPT为代表的生成式大规模语言模型(LLM, Large Language Models)等相关技术的爆发, 大量的LLM涌入医疗场景. 虽然LLM极大地推动了多模态大语言模型(MLLM, Multimodal Large Language Models)的进展, 如[MiniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4)、[mPLUG-Owl](https://github.com/X-PLUG/mPLUG-Owl)和[LLaVA](https://github.com/haotian-liu/LLaVA)等, 但是相关的MLLM技术却没有复刻LLM涌入医疗场景的繁荣景象, 尤其是中文领域, 阻碍了相关的研究进展. 我们认为究其原因不仅在于高质量中文多模态医疗数据的稀缺, 也在于缺少进入的勇气和想象力. 我们希望XrayQwen能和一些伟大的前辈项目们一道, 为推动相关领域做出一些微小的贡献.
+
 我们在[文心一言](https://yiyan.baidu.com/)的帮助下从[MIMIC-CXR](https://physionet.org/content/mimic-cxr-jpg/2.0.0/)和[OpenI](https://openi.nlm.nih.gov/faq#collection)两个两个数据集的自由文本放射学报告中生成中文版X射线报告配对数据用于本项目的训练数据, 并经过人工清洗和筛选. 
 
 我们利用上述数据在强大的基座模型[Qwen-VL](https://github.com/QwenLM/Qwen-VL)上进行微调, 得到XrayQwen.
 
-❗需要特别说明的是: XrayQwen目前仅作为生成式多模态大模型在医疗场景下的概念探索
+❗**需要特别说明的是, XrayQwen仍然存在诸多不足, 目前仅作为生成式多模态大模型在医疗场景下的概念探索, 其输出内容并不代表真实的诊断结果, 具体结果请遵循医生.**
 
 ## 🚀 开始使用
 
