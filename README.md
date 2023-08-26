@@ -1,4 +1,4 @@
-<h1 align="center">XrayQwen</h1>
+<div align=center><img src ="./assets/XrayQwen.jpg"/></div>  
 <p align="center">
 <a href="https://github.com/X-D-Lab/XrayQwen"><img src="https://img.shields.io/badge/GitHub-24292e" alt="github"></a>
 <a href="https://huggingface.co/X-D-Lab"><img src="https://img.shields.io/badge/-HuggingFace-yellow" alt="HuggingFace"></a>
@@ -86,7 +86,7 @@ print(response)
 python3 ./scripts/webui_demo.py
 ```
 
-此时访问http://127.0.0.1:7860即可.
+此时访问http://127.0.0.1:7860 即可.
 
 ![](./assets/xrayqwen.png)
 
