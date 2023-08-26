@@ -4,7 +4,7 @@
 <a href="https://huggingface.co/X-D-Lab"><img src="https://img.shields.io/badge/-HuggingFace-yellow" alt="HuggingFace"></a>
 <a href="https://modelscope.cn/organization/X-D-Lab"><img src="https://img.shields.io/badge/ModelScope-blueviolet" alt="modelscope"></a>
 </p> 
-<!-- 
+
 <div align="center">
 
 [![GitHub license](https://img.shields.io/github/license/X-D-Lab/XrayQwen
@@ -12,7 +12,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/X-D-Lab/XrayQwen)](https://github.com/X-D-Lab/XrayQwen/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/X-D-Lab/XrayQwen)](https://github.com/X-D-Lab/XrayQwen/fork)
 [![GitHub Contributors](https://img.shields.io/github/contributors/X-D-Lab/XrayQwen)](https://github.com/X-D-Lab/XrayQwen/graphs/contributors)  
-</div> -->
+</div>
 
 ## 📕 项目介绍
 
