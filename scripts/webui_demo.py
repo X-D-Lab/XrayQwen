@@ -1,15 +1,8 @@
-import os
-
-os.system('pip install tiktoken')
-os.system('pip install "modelscope" --upgrade -f https://pypi.org/project/modelscope/')
-os.system('pip install transformers_stream_generator')
-
 import copy
 import os
 import re
 import secrets
 import tempfile
-# os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 from argparse import ArgumentParser
 from pathlib import Path
 
@@ -25,18 +18,35 @@ PUNCTUATION = "！？。＂＃＄％＆＇（）＊＋，－／：；＜＝＞�
 
 def _get_args():
     parser = ArgumentParser()
-    parser.add_argument("-c", "--checkpoint-path", type=str, default=DEFAULT_CKPT_PATH,
+    parser.add_argument("-c",
+                        "--checkpoint-path",
+                        type=str,
+                        default=DEFAULT_CKPT_PATH,
                         help="Checkpoint name or path, default to %(default)r")
     parser.add_argument("--revision", type=str, default=REVISION)
-    parser.add_argument("--cpu-only", action="store_true", help="Run demo with CPU only")
+    parser.add_argument("--cpu-only",
+                        action="store_true",
+                        help="Run demo with CPU only")
 
-    parser.add_argument("--share", action="store_true", default=False,
-                        help="Create a publicly shareable link for the interface.")
-    parser.add_argument("--inbrowser", action="store_true", default=False,
-                        help="Automatically launch the interface in a new tab on the default browser.")
-    parser.add_argument("--server-port", type=int, default=8000,
+    parser.add_argument(
+        "--share",
+        action="store_true",
+        default=False,
+        help="Create a publicly shareable link for the interface.")
+    parser.add_argument(
+        "--inbrowser",
+        action="store_true",
+        default=False,
+        help=
+        "Automatically launch the interface in a new tab on the default browser."
+    )
+    parser.add_argument("--server-port",
+                        type=int,
+                        default=8000,
                         help="Demo server port.")
-    parser.add_argument("--server-name", type=str, default="127.0.0.1",
+    parser.add_argument("--server-name",
+                        type=str,
+                        default="127.0.0.1",
                         help="Demo server name.")
 
     args = parser.parse_args()
@@ -47,7 +57,9 @@ def _load_model_tokenizer(args):
     model_id = args.checkpoint_path
     model_dir = snapshot_download(model_id, revision=args.revision)
     tokenizer = AutoTokenizer.from_pretrained(
-        model_dir, trust_remote_code=True, resume_download=True,
+        model_dir,
+        trust_remote_code=True,
+        resume_download=True,
     )
 
     if args.cpu_only:
@@ -62,7 +74,9 @@ def _load_model_tokenizer(args):
         resume_download=True,
     ).eval()
     model.generation_config = GenerationConfig.from_pretrained(
-        model_dir, trust_remote_code=True, resume_download=True,
+        model_dir,
+        trust_remote_code=True,
+        resume_download=True,
     )
 
     return model, tokenizer
@@ -102,8 +116,7 @@ def _parse_text(text):
 
 def _launch_demo(args, model, tokenizer):
     uploaded_file_dir = os.environ.get("GRADIO_TEMP_DIR") or str(
-        Path(tempfile.gettempdir()) / "gradio"
-    )
+        Path(tempfile.gettempdir()) / "gradio")
 
     def predict(_chatbot, task_history):
         chat_query = _chatbot[-1][0]
@@ -134,7 +147,7 @@ def _launch_demo(args, model, tokenizer):
             name = f"tmp{secrets.token_hex(5)}.jpg"
             filename = temp_dir / name
             image.save(str(filename))
-            _chatbot[-1] = (_parse_text(chat_query), (str(filename),))
+            _chatbot[-1] = (_parse_text(chat_query), (str(filename), ))
             chat_response = response.replace("<ref>", "")
             chat_response = chat_response.replace(r"</ref>", "")
             chat_response = re.sub(BOX_TAG_PATTERN, "", chat_response)
@@ -165,15 +178,16 @@ def _launch_demo(args, model, tokenizer):
 
     def add_text(history, task_history, text):
         task_text = text
-        if len(text) >= 2 and text[-1] in PUNCTUATION and text[-2] not in PUNCTUATION:
+        if len(text) >= 2 and text[-1] in PUNCTUATION and text[
+                -2] not in PUNCTUATION:
             task_text = text[:-1]
         history = history + [(_parse_text(text), None)]
         task_history = task_history + [(task_text, None)]
         return history, task_history, ""
 
     def add_file(history, task_history, file):
-        history = history + [((file.name,), None)]
-        task_history = task_history + [((file.name,), None)]
+        history = history + [((file.name, ), None)]
+        task_history = task_history + [((file.name, ), None)]
         return history, task_history
 
     def reset_user_input():
@@ -186,25 +200,35 @@ def _launch_demo(args, model, tokenizer):
     with gr.Blocks() as demo:
 
         gr.Markdown("""<center><font size=8>XrayQwen</center>""")
-        gr.Markdown("""❗❗❗XrayQwen目前仅作为生成式多模态大模型在医疗场景下的概念探索，模型本身可能存在固有的局限性, 可能产生错误的、有害的、冒犯性的或其他不良的输出. 用户在关键或高风险场景中应谨慎行事, 不要使用模型作为最终决策参考, 以免导致人身伤害、财产损失或重大损失.""")
+        gr.Markdown(
+            """❗❗❗XrayQwen目前仅作为生成式多模态大模型在医疗场景下的概念探索，模型本身可能存在固有的局限性, 可能产生错误的、有害的、冒犯性的或其他不良的输出. 用户在关键或高风险场景中应谨慎行事, 不要使用模型作为最终决策参考, 以免导致人身伤害、财产损失或重大损失."""
+        )
 
-        chatbot = gr.Chatbot(label='X-D-Lab/XrayQwen', elem_classes="control-height").style(height=500)
+        chatbot = gr.Chatbot(label='X-D-Lab/XrayQwen',
+                             elem_classes="control-height").style(height=500)
         query = gr.Textbox(lines=1, label='Input')
         task_history = gr.State([])
 
         with gr.Row():
-            addfile_btn = gr.UploadButton("📁 Upload (上传文件)", file_types=["image"])
+            addfile_btn = gr.UploadButton("📁 Upload (上传文件)",
+                                          file_types=["image"])
             submit_btn = gr.Button("🚀 Submit (发送)")
             regen_btn = gr.Button("🤔️ Regenerate (重试)")
             empty_bin = gr.Button("🧹 Clear History (清除历史)")
 
-        submit_btn.click(add_text, [chatbot, task_history, query], [chatbot, task_history]).then(
-            predict, [chatbot, task_history], [chatbot], show_progress=True
-        )
+        submit_btn.click(add_text, [chatbot, task_history, query],
+                         [chatbot, task_history]).then(predict,
+                                                       [chatbot, task_history],
+                                                       [chatbot],
+                                                       show_progress=True)
         submit_btn.click(reset_user_input, [], [query])
-        empty_bin.click(reset_state, [task_history], [chatbot], show_progress=True)
-        regen_btn.click(regenerate, [chatbot, task_history], [chatbot], show_progress=True)
-        addfile_btn.upload(add_file, [chatbot, task_history, addfile_btn], [chatbot, task_history], show_progress=True)
+        empty_bin.click(reset_state, [task_history], [chatbot],
+                        show_progress=True)
+        regen_btn.click(regenerate, [chatbot, task_history], [chatbot],
+                        show_progress=True)
+        addfile_btn.upload(add_file, [chatbot, task_history, addfile_btn],
+                           [chatbot, task_history],
+                           show_progress=True)
 
         gr.Markdown("""\
 <font size=2>Note: This demo is governed by the original license of Qwen-VL. \
