@@ -34,9 +34,9 @@ pip install -r requirements.txt -U -i https://mirrors.aliyun.com/pypi/simple/
 
 ### 2. 模型列表  
 
-| 模型名称 | 合并后的权重 |
-| :----: | :----: |
-| XrayQwen | [ModelScope](https://modelscope.cn/models/X-D-Lab/XrayQwen/summary) / [HuggingFace]() / [OpenXLab]() |
+| 模型名称 |lora权重 | 合并后的权重 |
+| :----: | :----: | :----: |
+| XrayQwen | [ModelScope](https://modelscope.cn/models/X-D-Lab/XrayQwen-lora/summary) | [ModelScope](https://modelscope.cn/models/X-D-Lab/XrayQwen/summary) |
 
 ### 3. 模型推理
 
